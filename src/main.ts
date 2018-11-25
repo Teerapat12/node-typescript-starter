@@ -1,11 +1,15 @@
 'use strict';
-import * as http from 'http';
+import express from 'express';
 import PORT from './config';
+import {HtmlConverter} from './route';
 
-const server = http.createServer((req, res) => {
-  res.end('hello!');
-});
+const app: express.Application = express();
 
-server.listen(PORT, () => {
-  console.log(`server listening on port ${PORT}`);
+// Mount the WelcomeController at the /welcome route
+app.use('/welcome', HtmlConverter);
+
+// Serve the application at the given port
+app.listen(PORT, () => {
+    // Success callback
+    console.log(`Listening at http://localhost:${PORT}/`);
 });
